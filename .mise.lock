@@ -1,0 +1,7 @@
+[[tools.deno]]
+version = "2.5.4"
+backend = "core:deno"
+
+[tools.deno.platforms.macos-arm64]
+checksum = "blake3:8b0087ccd4660a5633437f14729f825bff271fe99339b31463020df0bcdaf061"
+size = 40466101
