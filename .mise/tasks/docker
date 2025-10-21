@@ -1,0 +1,5 @@
+#!/usr/bin/env fish
+#MISE description="Build bot container"
+#MISE sources=["**/*.ts"]
+
+docker build -t farside_bot .
