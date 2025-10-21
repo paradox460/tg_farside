@@ -1,8 +1,24 @@
-export function add(a: number, b: number): number {
-  return a + b;
+import { getComics } from "./src/farside.ts";
+import type { Comic } from "./src/farside.ts";
+import { send } from "./src/telegram.ts";
+
+const CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID");
+if (!CHAT_ID) {
+  throw new Error("TELEGRAM_CHAT_ID is not set");
 }
 
-// Learn more at https://docs.deno.com/runtime/manual/examples/module_metadata#concepts
-if (import.meta.main) {
-  console.log("Add 2 + 3 =", add(2, 3));
+let date;
+if (Deno.args.length > 0) {
+  [date] = Deno.args;
+}
+
+for await (const comic of getComics(date)) {
+  try {
+    const result = await send(comic, CHAT_ID);
+    console.log(
+      `Sent comic to chat ${result.from_chat_id} with message ID ${result.message_id}`,
+    );
+  } catch (error) {
+    console.error("Error sending comic:", error);
+  }
 }
