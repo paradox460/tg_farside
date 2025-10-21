@@ -1,0 +1,6 @@
+#!/usr/bin/env fish
+#MISE description="Build bot"
+#MISE sources=["**/*.ts"]
+#MISE outputs=["farside_bot"]
+#MISE tools=["deno"]
+deno compile --allow-all $argv --output farside_bot main.ts
