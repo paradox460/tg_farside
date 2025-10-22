@@ -1,0 +1,20 @@
+# If you are using a system that _doesn't_ have a version of Podman + Quadlet >
+# 5.0, you will need to use docker or some similar container runtime to run the
+# bot daily.
+#
+# You will need to have set up a 'farside' user on your system, and place a
+# .local.env file in the home directory, with your appropriate
+# TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID
+[Unit]
+Description=Farside Telegram Bot
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=no
+RestartSec=30
+User=farside
+Type=oneshot
+RemainAfterExit=no
+WorkingDirectory=/home/farside
+ExecStart=/usr/bin/docker run --env-file .local.env farside

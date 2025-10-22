@@ -1,0 +1,15 @@
+[Unit]
+Description="The Far Side Comic Telegram Bot"
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Restart=no
+TimeoutStartSec=900
+Type=oneshot
+RemainAfterExit=no
+User=
+EnvironmentFile=
+
+[Container]
+Image=farside_bot.build

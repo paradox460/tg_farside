@@ -1,0 +1,7 @@
+[Unit]
+Description="The Far Side Comic Telegram Bot builder"
+
+[Build]
+ImageTag=localhost/farside_bot
+
+SetWorkingDirectory=https://github.com/paradox460/tg_farside.git
