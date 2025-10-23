@@ -1,6 +1,7 @@
 import { getComics } from "./src/farside.ts";
 import type { Comic } from "./src/farside.ts";
 import { send } from "./src/telegram.ts";
+import { isDuplicate, storeDuplicate } from "./src/dupe_preventer.ts";
 
 const CHAT_ID = Deno.env.get("TELEGRAM_CHAT_ID");
 if (!CHAT_ID) {
@@ -12,7 +13,18 @@ if (Deno.args.length > 0) {
   [date] = Deno.args;
 }
 
-for await (const comic of getComics(date)) {
+const comics = await Array.fromAsync(getComics(date));
+
+if (!date) {
+  const [dupe, hash] = await isDuplicate(comics);
+  if (dupe) {
+    console.log("Duplicate as last run, exiting");
+    Deno.exit(0);
+  }
+  await storeDuplicate(hash);
+}
+
+for (const comic of comics) {
   try {
     const result = await send(comic, CHAT_ID);
     console.log(
