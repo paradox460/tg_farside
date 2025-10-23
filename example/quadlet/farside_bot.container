@@ -13,3 +13,4 @@ EnvironmentFile=
 
 [Container]
 Image=farside_bot.build
+Volume=farside_cache:/var/cache/farside/

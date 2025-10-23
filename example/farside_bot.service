@@ -17,4 +17,4 @@ User=farside
 Type=oneshot
 RemainAfterExit=no
 WorkingDirectory=/home/farside
-ExecStart=/usr/bin/docker run --env-file .local.env farside
+ExecStart=/usr/bin/docker run --rm --env-file .local.env -v farside_cache:/var/cache/farside farside

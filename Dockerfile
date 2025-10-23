@@ -12,4 +12,6 @@ FROM mcr.microsoft.com/playwright:v1.56.1-noble
 
 COPY --from=build /app/farside_bot /bin/farside_bot
 
+VOLUME /var/cache/farside/
+
 CMD ["/bin/farside_bot"]
